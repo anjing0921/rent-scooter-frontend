@@ -1,5 +1,8 @@
 .list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    background-color: bisque;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
   }
