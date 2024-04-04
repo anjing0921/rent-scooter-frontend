@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useEffect,useState } from "react";
+import MyRental from "./MyRental";
 
-const NewCustomerForm = ({ scooter_id }) => {
+const NewCustomerForm= ({ scooter }) => {
   const initialCustomer= [
     {
       id: 1,
@@ -40,29 +40,37 @@ const NewCustomerForm = ({ scooter_id }) => {
 }]
   const [customer, setCustomer] = useState(initialCustomer)
   const [rental, setRental] = useState(initialRental)
+  const [showMyRental, setShowMyRental] = useState(true)
   const [formFields, setFormFields] = useState({
     name: "",
     email: "",
   });
-  const newCustomer = formFields;
+  const [newRental, setNewRental] = useState([])
+  const [newCustomer,setNewCustomer ] = useState([])
 
   const addCustomer = () => {
     const newCustomerList = [...customer];
-
     const nextId =
       Math.max(...newCustomerList.map((customer) => customer.id)) + 1;
+    const cu = {
+      id: nextId,
+      name: formFields.name,
+      email: formFields.email,
+    }
+    setNewCustomer(cu);
+    
+    
     newCustomerList.push({
       id: nextId,
-      name: newCustomer.name,
-      email: newCustomer.email,
+      name: formFields.name,
+      email: formFields.name,
     });
     const customer_id = nextId
-    console.log(customer_id)
     setCustomer(newCustomerList);
-    // addRental(customer_id)
-    alert(`The new order is : Customer ${customer_id } rent ${scooter_id} `);
+    addRental({customer_id})
   };
-  // console.log(addCustomer());
+  // console.log(customer)
+  // console.log(newCustomer)
 
   const addRental = ({customer_id}) => {
     const newRentalList = [...rental];
@@ -72,17 +80,23 @@ const NewCustomerForm = ({ scooter_id }) => {
       newRentalList.push({
       id: nextId,
       customer_id: customer_id,
-      scooter_id: scooter_id,
-      is_returned: false,
+      scooter_id: scooter.id,
+      is_returned: "false",
     });
+    const rt = {
+      id: nextId,
+      customer_id: customer_id,
+      scooter_id: scooter.id,
+      is_returned: "false",
+    }
     setRental(newRentalList);
+    setNewRental(rt)
   };
-  console.log(rental)
   const onFormSubmit = (event) => {
     event.preventDefault();
 
     addCustomer();
-    addRental()
+    setShowMyRental(false)
     setFormFields({
       name: "",
       email: "",
@@ -103,22 +117,34 @@ const NewCustomerForm = ({ scooter_id }) => {
     });
   };
 
+  useEffect(() => {
+    console.log(newCustomer);
+}, [newCustomer, scooter, customer]);
   return (
-    <form>
+    <>
+      <form>
+        <div>
+          <label htmlFor="fullName">Name:</label>
+          <input
+            name="fullName"
+            value={formFields.name}
+            onChange={onNameChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input name="email" value={formFields.email} onChange={onEmailChange} />
+        </div>
+        <input value="Add Customer" type="submit" onClick={onFormSubmit} />
+      </form>
       <div>
-        <label htmlFor="fullName">Name:</label>
-        <input
-          name="fullName"
-          value={formFields.name}
-          onChange={onNameChange}
-        />
+        {!showMyRental &&
+          <MyRental 
+            rental = {newRental}
+          />
+        }
       </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input name="email" value={formFields.email} onChange={onEmailChange} />
-      </div>
-      <input value="Add Student" type="submit" onClick={onFormSubmit} />
-    </form>
+  </>
   );
 };
 

@@ -1,7 +1,6 @@
 .list {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-around; */
     background-color: bisque;
     justify-content: center; 
     align-items: center; /* 垂直居中 */

@@ -8,15 +8,18 @@
     min-width: 200px;
     padding: 2rem;
     box-shadow: 0 4px 8px 0 rgba(240, 232, 232, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    margin-left: 50px
 }
-.span {
+/* span {
     display: flex;
     display: inline-block;
     width: 50px;
-    padding: 50px
-}
+    padding: 50px;
+    margin-left: 50px
+} */
 .card_message {
     font-size: 1.4rem;
+    margin-left: 50px;
     text-align: center;
     word-break: break-word;
     color:black;
