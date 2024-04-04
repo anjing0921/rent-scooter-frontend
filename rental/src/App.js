@@ -1,7 +1,8 @@
 
 import './App.css';
 // import Header from "./componets/Header"
-
+// import Reservation from './componets/Reservation';
+import { useHistory } from 'react-router-dom';
 import ScooterList from './componets/ScooterList';
 
 function App() {
@@ -12,6 +13,9 @@ function App() {
           <section>
             <div>
               <ScooterList/>
+            </div>
+            <div>
+              {/* <Reservation/> */}
             </div>
           </section>
         </section>
